@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install basic utilities and dependencies
 RUN apt-get update && apt-get install -y \
     wget \
+    git \
     curl \
     vim \
     nano \
@@ -37,5 +38,10 @@ RUN K9S_VERSION=$(curl -s https://api.github.com/repos/derailed/k9s/releases/lat
     tar -xzf k9s_Linux_amd64.tar.gz && \
     mv k9s /usr/local/bin/ && \
     rm k9s_Linux_amd64.tar.gz
+# ...existing code...
 
+# Set prompt to "korca: <current path>" with red background
+RUN echo 'export PS1="\[\e[41;30m\]korca: \w\[\e[0m\] > "' >> /etc/bash.bashrc
+
+# ...existing code...
 CMD ["/bin/bash"]
